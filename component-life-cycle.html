@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Component Life Cycle</title>
+    <script src="build/react.js"></script>
+    <script src="build/react-dom.js"></script>
+    <script src="build/browser.min.js"></script>
+</head>
+<body>
+
+    <div id="app"></div>
+
+    <script type="text/babel">
+        /**
+        * @desc:Input is used for users' input.
+        */
+        var Input = React.createClass({
+            render:function(){
+                return (
+                    <div>
+                        <input onChange={this.handleChange} />
+                    </div>
+                );
+            },
+
+            /**
+            * @desc: When input value changes, send message to parent node.
+            * In the parent node App, it will trigger App's handleChange.
+            */
+            handleChange:function(event){
+                this.props.onTextChange(event.target.value);
+            }
+
+        });
+
+        /**
+        * @desc: Another component used to display the input's result.
+        */
+        var ShowBox = React.createClass({
+            getInitialState:function(){
+                return {
+                    state:''
+                }
+            },
+            /**
+            * @desc: Triggered when props are changed.
+            */
+            componentWillReceiveProps:function(nextProps){
+                this.setState({
+                    state:'componentWillReceiveProps ' + nextProps.text
+                });
+            },
+            render:function(){
+                return (
+                    <div>
+                        <h2>Input is : {this.props.text}</h2>
+                        <p>My state has changed using componentWillReceiveProps: {this.state.state}</p>
+                    </div>
+                );
+            }
+
+        });
+
+        /**
+        * @desc: Top level component.
+        */
+        var App = React.createClass({
+            render:function(){
+                return (
+                    <div>
+                        <Input onTextChange={this.handleChange} text={this.state.text} />
+                        <ShowBox text={this.state.text} />
+                    </div>
+                );
+            },
+            getInitialState:function(){
+                return {text:'init'};
+            },
+            handleChange:function(text){
+                this.setState({
+                    text:text
+                });
+            }
+        });
+
+        ReactDOM.render(
+            <App />,
+            document.getElementById('app')
+        );
+
+    </script>
+
+</body>
+</html>
