@@ -10,12 +10,17 @@
 <body>
 
     <div id="app"></div>
-
+    <div id="app2"></div>
     <script type="text/babel">
         /**
         * @desc:Input is used for users' input.
         */
         var Input = React.createClass({
+            getDefaultProps:function(){
+                return {
+                    name : 'Input'
+                }
+            },
             render:function(){
 
                 console.log('Input is rendered');
@@ -41,6 +46,13 @@
         * @desc: Another component used to display the input's result.
         */
         var ShowBox = React.createClass({
+
+            getDefaultProps:function(){
+                return {
+                    name : 'ShowBox'
+                }
+            },
+
             getInitialState:function(){
                 return {
                     state:''
@@ -72,6 +84,13 @@
         * @desc: Top level component.
         */
         var App = React.createClass({
+
+            getDefaultProps:function(){
+                return {
+                    name : 'App'
+                }
+            },
+
             render:function(){
 
                 console.log('App is rendered');
@@ -96,6 +115,11 @@
         ReactDOM.render(
             <App />,
             document.getElementById('app')
+        );
+
+        ReactDOM.render(
+            <App />,
+            document.getElementById('app2')
         );
 
         /**
