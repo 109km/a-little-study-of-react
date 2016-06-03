@@ -21,6 +21,9 @@
                     name : 'Input'
                 }
             },
+            componentWillReceiveProps:function(nextProps){
+                console.log('Input componentWillReceiveProps');
+            },
             render:function(){
 
                 console.log('Input is rendered');
@@ -62,6 +65,7 @@
             * @desc: Triggered when props are changed.
             */
             componentWillReceiveProps:function(nextProps){
+                console.log('ShowBox componentWillReceiveProps');
                 this.setState({
                     state:'componentWillReceiveProps ' + nextProps.text
                 });
@@ -90,13 +94,19 @@
                     name : 'App'
                 }
             },
-
+            componentWillReceiveProps:function(nextProps){
+                console.log('App componentWillReceiveProps');
+            },
+            componentWillUpdate:function(nextProps,nextState){
+                console.log(nextProps,nextState);
+            },
             render:function(){
 
                 console.log('App is rendered');
 
                 return (
                     <div>
+                        {this.props.data.test}
                         <Input onTextChange={this.handleChange} text={this.state.text} />
                         <ShowBox text={this.state.text} />
                     </div>
@@ -112,13 +122,15 @@
             }
         });
 
+        var mydata = {test:'data'};
         ReactDOM.render(
-            <App />,
+            <App data={mydata} />,
             document.getElementById('app')
         );
 
+        mydata = {test:'data2'};
         ReactDOM.render(
-            <App />,
+            <App data={mydata} />,
             document.getElementById('app2')
         );
 
