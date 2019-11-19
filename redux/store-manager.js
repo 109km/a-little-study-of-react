@@ -27,9 +27,10 @@ export const createStoreManager = () => {
     }
     // Each reducer must be a pure function
     Reducers[actionName] = (state, action) => {
-      return Object.assign({}, state, {
+      return {
+        ...state,
         [stateName]: actionReducer(state[stateName], action.payload)
-      })
+      }
     }
   }
 
