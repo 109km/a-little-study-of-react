@@ -24,7 +24,6 @@ const unsubsccribe = store.subscribe(() => {
 storeManger.create("ADD_TODO", "todos", (todos, payload) => {
   return todos.concat(payload);
 });
-
 storeManger.create("REMOVE_TODO", "todos", (todos, payload) => {
   return todos.filter((item) => {
     return item !== payload
