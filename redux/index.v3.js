@@ -1,5 +1,5 @@
 import { createStore } from 'redux';
-import { createState, createStoreManager } from './store-manager';
+import { createState, createStoreManager, createAtom } from './store-manager';
 
 const storeManger = createStoreManager();
 storeManger.create("ADD", "total", (total, payload) => {

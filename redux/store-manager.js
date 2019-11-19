@@ -1,8 +1,14 @@
 
+
+// Create an atom object which has no `Object`'s functions.
+// Cause its prototype is `null`.
 export const createAtom = () => {
   return Object.create(null);
 }
 
+// The state's structure must be defined at 
+// the beginning, it's not allow to add or remove
+// any its property.
 export const createState = (obj) => {
   return Object.seal(obj)
 }
