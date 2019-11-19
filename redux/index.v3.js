@@ -2,6 +2,11 @@ import { createStore } from 'redux';
 import { createState, createStoreManager, createAtom } from './store-manager';
 
 const storeManger = createStoreManager();
+
+// Define an action and its reducer at the same time,
+// so it's easy to understand what this action will do.
+// And also we know which property of state will be changed
+// by this action. 
 storeManger.create("ADD", "total", (total, payload) => {
   return total + payload;
 });
