@@ -1,7 +1,6 @@
 
 const createStore = (reducer, preloadState = null) => {
 
-
   if (typeof reducer !== "function") {
     throw new TypeError('Reducer must be a function.');
   }
@@ -11,21 +10,25 @@ const createStore = (reducer, preloadState = null) => {
   }
 
   let currentState = preloadState;
-  const updateCallbacks = [];
+  const updateCallbacks = {};
+  let callbacksIndex = 0;
 
   const updateState = (action) => {
     currentState = reducer(currentState, action);
     Object.freeze(currentState);
-    updateCallbacks.map((callback) => {
-      callback();
-    });
+    for (let key in updateCallbacks) {
+      updateCallbacks[key]();
+    }
+
   }
 
+  // 订阅每次
   const subscribe = (fn) => {
-    let index = updateCallbacks.length;
-    updateCallbacks.push(fn);
+    let index = callbacksIndex;
+    updateCallbacks[callbacksIndex] = fn;
+    callbacksIndex++;
     return () => {
-      updateCallbacks.splice(index, 1);
+      delete updateCallbacks[index];
     }
   }
 
@@ -62,8 +65,9 @@ store.dispatch({
 });
 
 
-unsubsribe();
+unsubscribe();
 
+// 不会触发 console.log
 store.dispatch({
   type: "ADD",
   payload: 2
