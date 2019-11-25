@@ -21,6 +21,8 @@ const INIT_STATE = createState({
 
 const store = createStore(storeManger.reducer, INIT_STATE);
 
+
+
 const unsubsccribe = store.subscribe(() => {
   console.log(store.getState());
 });
